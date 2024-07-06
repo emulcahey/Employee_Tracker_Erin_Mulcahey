@@ -80,7 +80,7 @@ sequelize.authenticate().then(() => {
   Roles.belongsTo(Employees); // , {foreignKey: 'department_id'}  
   Employees.belongsTo(Employees); // , {foreignKey: 'manager_id'}
   
-  Departments.sync({force:true});
+  Departments.sync({alter:true});
   Roles.sync({alter:true});
   Employees.sync({alter:true});
   console.log('Database connected successfully.');
