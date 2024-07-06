@@ -2,7 +2,7 @@
   "name": "employee_tracker_erin_mulcahey",
   "version": "1.0.0",
   "description": "command-line application to manage a company's employee database, using Node.js, Inquirer, and PostgreSQL.",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "live": "nodemon main.js"
