@@ -11,7 +11,6 @@ const { where } = require('sequelize');
 // the function will prompt the user with the questions array
 function init() {
     inquirer.prompt(questions).then((answers) => {
-        //console.log(answers);
         callSequelize(answers);
     }).catch((error) => {
         console.error(error);
@@ -19,7 +18,6 @@ function init() {
 }
 
 async function callSequelize(answers) {
-    // console.log('Sequelize called, for options: ', answers.mainOptions);
     switch (answers.mainOptions) {
         case 'View all Departments':
             const departments = await Departments.findAll({raw: true});
@@ -126,7 +124,6 @@ async function callSequelize(answers) {
                     console.log('Deleted Role: ', roleToDelete.title);
                     break;
                 case 'Employee':
-                    console.log('about to delete employee')
                     const employeeToDelete = await Employees.findOne({where: {first_name: answers.deleteEmployeeFirstName, last_name: answers.deleteEmployeeLastName}});
                     const employeeToDeleteID = employeeToDelete.id;
                     await Employees.destroy({where: {id: employeeToDeleteID}});
