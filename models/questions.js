@@ -84,8 +84,43 @@ const questions = [{
         return answers.mainOptions === "Add an Employee";
     },
     }, {
+//view employee by manager Questions
+    name: 'viewEmployeesByManagerFirstName',
+    message: 'What is the first name of the manager you would like to view the employees for?',
+    response: 'string',
+    when: function( answers ) {
+        // Only run if user answered View Employees by Manager to the first prompt
+        return answers.mainOptions === "View Employees by Manager";
+    },
+    }, {
+    name: 'viewEmployeesByManagerLastName',
+    message: 'What is the last name of the manager you would like to view the employees for?',
+    response: 'string',
+    when: function( answers ) {
+        // Only run if user answered View Employees by Manager to the first prompt
+        return answers.mainOptions === "View Employees by Manager";
+    },
+    }, {
+//view employees by department Question
+    name: 'viewEmployeesByDepartment',
+    message: 'What department would you like to view the employees for?',
+    response: 'string',
+    when: function( answers ) {
+        // Only run if user answered View Employees by Department to the first prompt
+        return answers.mainOptions === "View Employees by Department";
+    },
+    }, {
+//View Total Utilized Budget of a Department Question
+    name: 'viewTotalUtilizedBudgetOfADepartment',
+    message: 'What department would you like to view the total utilized budget for?',
+    response: 'string',
+    when: function( answers ) {
+        // Only run if user answered View Total Utilized Budget of a Department to the first prompt
+        return answers.mainOptions === "View Total Utilized Budget of a Department";
+    },
+    }, {
 //update an employee role Questions
-    name: 'updateAnEmployeeRoleEmployeeFirstName',
+    name: 'updateAnEmployeeRoleFirstName',
     message: 'What is the first name of the employee you would like to update the role for?',
     response: 'string',
     when: function( answers ) {
@@ -93,7 +128,7 @@ const questions = [{
         return answers.mainOptions === "Update an Employee Role";
     },
     }, {
-    name: 'updateAnEmployeeRoleEmployeeLastName',
+    name: 'updateAnEmployeeRoleLastName',
     message: 'What is the last name of the employee you would like to update the role for?',
     response: 'string',
     when: function( answers ) {
@@ -110,7 +145,7 @@ const questions = [{
     },
     }, {
 //update an employee manager Questions
-    name: 'updateAnEmployeeManagerEmployeeFirstName',
+    name: 'updateAnEmployeeManagerFirstName',
     message: 'What is the first name of the employee you would like to update the manager for?',
     response: 'string',
     when: function( answers ) {
@@ -118,7 +153,7 @@ const questions = [{
         return answers.mainOptions === "Update an Employee Manager";
     },
     }, {
-    name: 'updateAnEmployeeManagerEmployeeLastName',
+    name: 'updateAnEmployeeManagerLastName',
     message: 'What is the last name of the employee you would like to update the manager for?',
     response: 'string',
     when: function( answers ) {
@@ -126,8 +161,16 @@ const questions = [{
         return answers.mainOptions === "Update an Employee Manager";
     },
     }, {
-    name: 'updateAnEmployeeManagerNewManager',
+    name: 'updateAnEmployeeManagerNewManagerFirstName',
     message: 'Who is the new manager for the employee?',
+    response: 'string',
+    when: function( answers ) {
+        // Only run if user answered Update an Employee Manager to the first prompt
+        return answers.mainOptions === "Update an Employee Manager";
+    },
+    }, {
+    name: 'updateAnEmployeeManagerNewManagerLastName',
+    message: 'What is the last name of the new manager for the employee?',
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Update an Employee Manager to the first prompt

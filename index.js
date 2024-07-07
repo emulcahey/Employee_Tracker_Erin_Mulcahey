@@ -26,21 +26,52 @@ async function callSequelize(answers) {
             break;
         case 'View all Roles':
             const rolls = await Roles.findAll({raw: true});
+            const departmentNames = await Departments.findAll({where: {id: rolls.map(role => role.department_id)}});
+            rolls.forEach(role => {
+                const department = departmentNames.find(d => d.id === role.department_id);
+                role.department = department.name;
+            });
             console.table(rolls);
             break;
         case 'View all Employees':
             const employees = await Employees.findAll({raw: true});
+            const employeeRoles = await Roles.findAll({where: {id: employees.map(employee => employee.role_id)}}, {raw: true});
+            const employeeDepartments = await Departments.findAll({where: {id: employeeRoles.map(role => role.department_id)}});
+            const employeeManagers = await Employees.findAll({where: {id: employees.map(employee => employee.manager_id)}});
+            employees.forEach(employee => {
+                const role = employeeRoles.find(r => r.id === employee.role_id);
+                const department = employeeDepartments.find(d => d.id === role.department_id);
+                const manager = employeeManagers.find(m => m.id === employee.manager_id);
+                employee.role = role.title;
+                employee.department = department.name;
+                employee.salary = role.salary;
+                employee.manager = manager ? manager.first_name + ' ' + manager.last_name : null;
+            });
             console.table(employees);
             break;
         case 'View Employees by Manager':
-            const employeesByManager = await Employees.findAll({raw: true});
-            console.log('Viewed Employees by Manager');
+            const employeesByManager = await Employees.findOne({where: {first_name: answers.viewEmployeesByManagerFirstName, last_name: answers.viewEmployeesByManagerLastName}});
+            const employeesByManagerList = await Employees.findAll({where: {manager_id: employeesByManager.id}, raw: true});
+            console.table(employeesByManagerList);
             break;
         case 'View Employees by Department':
-            console.log('Viewed Employees by Department');
+            const employeesByDepartment = await Departments.findOne({where: {name: answers.viewEmployeesByDepartment}});
+            const rolesByDepartmentList = await Roles.findAll({where: {department_id: employeesByDepartment.id}, raw: true});
+            const employeesByDepartmentList = await Employees.findAll({where: {role_id: rolesByDepartmentList.map(role => role.id)}, raw: true});
+            console.table(employeesByDepartmentList);
             break;
         case 'View Total Utilized Budget of a Department':
-            console.log('Viewed Total Utilized Budget of a Department');
+            const targetDepartment = await Departments.findOne({where: {name: answers.viewTotalUtilizedBudgetOfADepartment}});
+            const rolesByDepartment = await Roles.findAll({where: {department_id: targetDepartment.id}, raw: true});
+            const targetEmployees = await Employees.findAll({where: {role_id: rolesByDepartment.map(role => role.id)}});
+            const totalSalariesByRole = {};
+            targetEmployees.forEach(employee => {
+                const role = employee.role_id;
+                const salary = rolesByDepartment.find(r => r.id === role)?.salary || 0;
+                totalSalariesByRole[role] = (totalSalariesByRole[role] || 0) + parseFloat(salary);
+            });
+            const totalUtilizedBudget = Object.values(totalSalariesByRole).reduce((acc, salary) => acc + parseFloat(salary), 0);
+            console.log('Total Utilized Budget of The ', targetDepartment.name, ' Department:', totalUtilizedBudget);
             break;
         case 'Add a Department':
             const department = await Departments.create({name: answers.addADepartment});
@@ -69,10 +100,16 @@ async function callSequelize(answers) {
             }
             break;
         case 'Update an Employee Role':
-            console.log('Updated an Employee Role');
+            const employeeToUpdate = await Employees.findOne({where: {first_name: answers.updateAnEmployeeRoleFirstName, last_name: answers.updateAnEmployeeRoleLastName}});
+            const newRole = await Roles.findOne({where: {title: answers.updateAnEmployeeRoleNewRole}});
+            await Employees.update({role_id: newRole.id}, {where: {id: employeeToUpdate.id}});
+            console.log('Updated Employee: ', employeeToUpdate.first_name,' ',employeeToUpdate.last_name,' Role to ', newRole.title);
             break;
         case 'Update an Employee Manager':
-            console.log('Updated an Employee Manager');
+            const employeeToUpdateManager = await Employees.findOne({where: {first_name: answers.updateAnEmployeeManagerFirstName, last_name: answers.updateAnEmployeeManagerLastName}});
+            const newManager = await Employees.findOne({where: {first_name: answers.updateAnEmployeeManagerNewManagerFirstName, last_name: answers.updateAnEmployeeManagerNewManagerLastName}});
+            await Employees.update({manager_id: newManager.id}, {where: {id: employeeToUpdateManager.id}});
+            console.log('Updated Employee: ', employeeToUpdateManager.first_name,' ',employeeToUpdateManager.last_name,' Manager to ', newManager.first_name,' ',newManager.last_name);
             break;
         case 'Department':
             console.log('Deleted Department');
