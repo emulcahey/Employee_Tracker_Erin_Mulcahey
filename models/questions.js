@@ -68,8 +68,16 @@ const questions = [{
         return answers.mainOptions === "Add an Employee";
     },
     }, {
-    name: 'addAnEmployeeManager',
-    message: 'Who is the manager of the employee you would like to add?',
+    name: 'addAnEmployeeManagerFirstName',
+    message: 'What is the first name of the manager for the employee that you would like to add?',
+    response: 'string',
+    when: function( answers ) {
+        // Only run if user answered Add an Employee to the first prompt
+        return answers.mainOptions === "Add an Employee";
+    },
+    }, {
+    name: 'addAnEmployeeManagerLastName',
+    message: 'What is the last name of the manager for the employee that you would like to add?',
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Add an Employee to the first prompt
