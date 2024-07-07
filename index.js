@@ -5,6 +5,7 @@ const sequelize = require('./config/connection');
 const Departments = require('./models/departments');
 const Employees = require('./models/employees');
 const Roles = require('./models/roles');
+const { where } = require('sequelize');
 
 // function will initialize app
 // the function will prompt the user with the questions array
@@ -18,7 +19,7 @@ function init() {
 }
 
 async function callSequelize(answers) {
-    // console.log('Sequelize called');
+    // console.log('Sequelize called, for options: ', answers.mainOptions);
     switch (answers.mainOptions) {
         case 'View all Departments':
             const departments = await Departments.findAll({raw: true});
@@ -111,17 +112,30 @@ async function callSequelize(answers) {
             await Employees.update({manager_id: newManager.id}, {where: {id: employeeToUpdateManager.id}});
             console.log('Updated Employee: ', employeeToUpdateManager.first_name,' ',employeeToUpdateManager.last_name,' Manager to ', newManager.first_name,' ',newManager.last_name);
             break;
-        case 'Department':
-            console.log('Deleted Department');
-            break;
-        case 'Role':
-            console.log('Deleted Role');
-            break;
-        case 'Employee':
-            console.log('Deleted Employee');
-            break;
+        case 'Delete Departments, Roles, and Employees':
+        {
+            switch (answers.deleteDepartmentRoleEmployee) {
+                case 'Department':
+                    const departmentToDelete = await Departments.findOne({where: {name: answers.deleteDepartment}});
+                    await Departments.destroy({where: {id: departmentToDelete.id}});
+                    console.log('Deleted Department: ', departmentToDelete.name);
+                    break;
+                case 'Role':
+                    const roleToDelete = await Roles.findOne({where: {title: answers.deleteRole}});
+                    await Roles.destroy({where: {id: roleToDelete.id}});
+                    console.log('Deleted Role: ', roleToDelete.title);
+                    break;
+                case 'Employee':
+                    console.log('about to delete employee')
+                    const employeeToDelete = await Employees.findOne({where: {first_name: answers.deleteEmployeeFirstName, last_name: answers.deleteEmployeeLastName}});
+                    const employeeToDeleteID = employeeToDelete.id;
+                    await Employees.destroy({where: {id: employeeToDeleteID}});
+                    console.log('Deleted Employee: ', employeeToDelete.first_name,' ',employeeToDelete.last_name);
+                    break;
+            }
+            break
+        }
     }
-    // do stuff - load tables, add data, etc.
 }
 
 module.exports = {init};
