@@ -4,7 +4,7 @@ const Department = require('./models/departments');
 const Employee = require('./models/employees');
 const Role = require('./models/roles');
 
-connection.sync()
+connection.sync({alter: true})
   .then(() => {
     // console.log('Database synced');
     // console.log('these models are available: ', connection.models);
