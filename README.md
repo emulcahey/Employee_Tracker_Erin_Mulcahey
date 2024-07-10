@@ -6,7 +6,7 @@ Employee Tracker is a command-line application to manage a company's employee da
 
 ## Installation
 
-To use this program, the user will need to: -Clone this repository. And, open the repository from the installed folder. -Access the integrated terminal and install npm and node.js to use the repository. -type 'node index.js' into the integrated terminal. -type answers to the prompts that the programs gives the user.
+To use this program, the user will need to: -Clone this repository. And, open the repository from the installed folder. -Access the integrated terminal and install npm and main.js to use the repository. -type 'node index.js' into the integrated terminal. -type answers to the prompts that the programs gives the user.
 
 ## Usage
 
