@@ -7,7 +7,8 @@ const questions = [{
     type: 'list',
     choices: ['View all Departments', 'View all Roles', 'View all Employees', 'View Employees by Manager', 
         'View Employees by Department', 'View Total Utilized Budget of a Department', 'Add a Department', 
-        'Add a Role', 'Add an Employee', 'Update an Employee Role', 'Update an Employee Manager', 'Delete Departments, Roles, and Employees']    
+        'Add a Role (To add a role, you must have a department created first)', 'Add an Employee (To add an employee, you must have a role created first)', 
+        'Update an Employee Role', 'Update an Employee Manager', 'Delete Departments, Roles, and Employees']    
     }, {
 //add a department Question
     name: 'addADepartment',
@@ -189,7 +190,7 @@ const questions = [{
     }, {
 //delete department question
     name: 'deleteDepartment',
-    message: 'Which department would you like to delete?',
+    message: 'Which department would you like to delete? (Note: If you delete a department, all roles and employees associated with that department must be reassigned.)',
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Department to the first prompt
@@ -198,7 +199,7 @@ const questions = [{
     }, {
 //delete role question
     name: 'deleteRole',
-    message: 'Which role would you like to delete?',
+    message: 'Which role would you like to delete? (Note: If you delete a role, all employees associated with that role must be reassigned.)',
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Role to the first prompt
