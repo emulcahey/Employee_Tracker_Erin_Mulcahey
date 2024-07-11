@@ -25,7 +25,7 @@ const questions = [{
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Add a Role to the first prompt
-        return answers.mainOptions === "Add a Role";
+        return answers.mainOptions === "Add a Role (To add a role, you must have a department created first)";
     },
     }, {
     name: 'addARoleSalary',
@@ -33,7 +33,7 @@ const questions = [{
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Add a Role to the first prompt
-        return answers.mainOptions === "Add a Role";
+        return answers.mainOptions === "Add a Role (To add a role, you must have a department created first)";
     },
     }, {
     name: 'addARoleDepartment',
@@ -41,7 +41,7 @@ const questions = [{
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Add a Role to the first prompt
-        return answers.mainOptions === "Add a Role";
+        return answers.mainOptions === "Add a Role (To add a role, you must have a department created first)";
     },
     }, {
 //add an employee Questions
@@ -50,7 +50,7 @@ const questions = [{
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Add an Employee to the first prompt
-        return answers.mainOptions === "Add an Employee";
+        return answers.mainOptions === "Add an Employee (To add an employee, you must have a role created first)";
     },
     }, {
     name: 'addAnEmployeeLastName',
@@ -58,7 +58,7 @@ const questions = [{
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Add an Employee to the first prompt
-        return answers.mainOptions === "Add an Employee";
+        return answers.mainOptions === "Add an Employee (To add an employee, you must have a role created first)";
     },
     }, {
     name: 'addAnEmployeeRole',
@@ -66,7 +66,7 @@ const questions = [{
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Add an Employee to the first prompt
-        return answers.mainOptions === "Add an Employee";
+        return answers.mainOptions === "Add an Employee (To add an employee, you must have a role created first)";
     },
     }, {
     name: 'addAnEmployeeManagerFirstName',
@@ -74,7 +74,7 @@ const questions = [{
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Add an Employee to the first prompt
-        return answers.mainOptions === "Add an Employee";
+        return answers.mainOptions === "Add an Employee (To add an employee, you must have a role created first)";
     },
     }, {
     name: 'addAnEmployeeManagerLastName',
@@ -82,7 +82,7 @@ const questions = [{
     response: 'string',
     when: function( answers ) {
         // Only run if user answered Add an Employee to the first prompt
-        return answers.mainOptions === "Add an Employee";
+        return answers.mainOptions === "Add an Employee (To add an employee, you must have a role created first)";
     },
     }, {
 //view employee by manager Questions
