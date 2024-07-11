@@ -76,12 +76,12 @@ async function callSequelize(answers) {
             const department = await Departments.create({name: answers.addADepartment});
             console.log('Added Department: ', department.name);
             break;
-        case 'Add a Role':
+        case 'Add a Role (To add a role, you must have a department created first)':
             const existingDepartment = await Departments.findOne({where: {name: answers.addARoleDepartment}});
             const role = await Roles.create({title: answers.addARoleName, salary: answers.addARoleSalary, department_id: existingDepartment.id});
             console.log('Added Role: ', role.title,', Salary: ', role.salary,' Department: ', existingDepartment.name);
             break;
-        case 'Add an Employee':
+        case 'Add an Employee (To add an employee, you must have a role created first)':
             const existingRole = await Roles.findOne({where: {title: answers.addAnEmployeeRole}});
             const existingManager = await Employees.findOne({where: {first_name: answers.addAnEmployeeManagerFirstName, last_name: answers.addAnEmployeeManagerLastName}});
             let employee;
